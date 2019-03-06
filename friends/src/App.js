@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import FriendList from './components/FriendList'
 
 class App extends Component {
   constructor() {
@@ -13,18 +14,24 @@ class App extends Component {
   componentDidMount() {
     console.log('CDM is running')
     axios
-      .get('http://localhost:3000')
+      .get('http://localhost:5000/friends')
       .then(res => {
-        this.setState({ friends: res.data })
-        console.log(this.state)
+        console.log(res.data)
+        this.setState({ friends: res.data})
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 
   render() {
+    console.log(this.state)
     return (
       <div className="App">
         <header className="App-header">
-          <div>here it is</div>
+          <FriendList 
+          friends={this.state.friends}
+          />
         </header>
       </div>
     );
