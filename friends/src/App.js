@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
 import FriendList from './components/FriendList'
-
+import Form from './components/FriendForm'
 class App extends Component {
   constructor() {
     super();
@@ -28,11 +28,16 @@ class App extends Component {
     console.log(this.state)
     return (
       <div className="App">
-        <header className="App-header">
+      <header>
+        <h1>Add Your Best Bud!</h1>
+        <Form />
+      </header>
+
+        <div className="App-header">
           <FriendList 
           friends={this.state.friends}
           />
-        </header>
+        </div>
       </div>
     );
   }
