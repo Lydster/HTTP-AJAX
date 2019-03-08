@@ -3,6 +3,8 @@ import axios from 'axios';
 import './App.css';
 import FriendList from './components/FriendList'
 import Form from './components/FriendForm'
+
+
 class App extends Component {
   constructor() {
     super();
@@ -24,6 +26,21 @@ class App extends Component {
       })
   }
 
+  addFriend = (e, friend) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:5000/friends', friend)
+      .then(res => {
+        this.setState({
+          friends: res.data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
   render() {
     console.log(this.state)
     return (
@@ -36,6 +53,7 @@ class App extends Component {
         <div className="App-header">
           <FriendList 
           friends={this.state.friends}
+          addFriend={this.addFriend}
           />
         </div>
       </div>

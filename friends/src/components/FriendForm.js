@@ -4,59 +4,78 @@ import React from 'react';
 class Form extends React.Component {
     constructor(props) {
         super(props);
+       
         this.state = {
-            name: '',
-            email: '', 
-            age: ''
+            friend: {
+                id: '',
+                name: '', 
+                age: '',
+                email: ''
+            }
         }
     }
 
-    handleChangesName = e => {
-        this.setState({ [e.target.name]: e.target.value});
-        console.log(e.target.value)
+    handleChange = e => {
+        e.persist();
+        this.setState(prevState => ({ 
+            friend: {
+                ...prevState.friend,
+                [e.target.name]: e.target.value
+            }
+    }));
     }
-
-    handleChangesEmail = e => {
-        this.setState({ [e.target.name]: e.target.value});
-        console.log(e.target.value)
-    }
-
-    handleChangesAge = e => {
-        this.setState({ [e.target.name]: e.target.value});
-        console.log(e.target.value)
-    }
-
+    
 
     submitHandler = e => {
-        this.setState({ })
+        this.props.addFriend(e, this.state.friend);
+        this.setState({
+            friend: {
+                id: '',
+                name: '', 
+                age: '',
+                email: ''
+            }
+
+        })
     }
 
     render() {
         return (
-            <form >
+            <form onSubmit={this.submitHandler}>
                 <h5>Name</h5>
                 <input
                     type="text"
-                    value={this.state.name}
+                    value={this.state.friend.name}
                     name="name"
-                    onChange={this.handleChangesName}
+                    placeholder="Name"
+                    onChange={this.handleChange}
                 />
                  <h5>Email</h5>
                 <input
                     type="text"
-                    value={this.state.email}
+                    value={this.state.friend.email}
                     name="email"
-                    onChange={this.handleChangesEmail}
+                    placeholder="Email"
+                    onChange={this.handleChange}
                 />
                  <h5>Age</h5>
                 <input
                     type="text"
-                    value={this.state.age}
+                    value={this.state.friend.age}
                     name="age"
-                    onChange={this.handleChangesAge}
+                    placeholder="Age"
+                    onChange={this.handleChange}
+                />
+                <h5>ID</h5>
+                <input
+                    type="text"
+                    value={this.state.friend.id}
+                    name="id"
+                    placeholder="ID"
+                    onChange={this.handleChange}
                 />
                 <div>
-                    <button>Submit</button>
+                    <button onClick={this.submitHandler}>Submit</button>
                 </div>
             </form>
         )
