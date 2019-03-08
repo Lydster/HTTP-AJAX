@@ -14,13 +14,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('CDM is running')
     axios
       .get('http://localhost:5000/friends')
-      .then(res => {
-        console.log(res.data)
-        this.setState({ friends: res.data})
-      })
+      .then(res => this.setState({ friends: res.data}))
       .catch(err => {
         console.log(err)
       })
@@ -47,13 +43,13 @@ class App extends Component {
       <div className="App">
       <header>
         <h1>Add Your Best Bud!</h1>
-        <Form />
+        <Form addFriend={this.addFriend}/>
       </header>
 
         <div className="App-header">
           <FriendList 
           friends={this.state.friends}
-          addFriend={this.addFriend}
+          
           />
         </div>
       </div>
